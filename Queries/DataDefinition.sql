@@ -5,3 +5,11 @@ CREATE TABLE people (
 	phone VARCHAR(15) NOT NULL,
 	CONSTRAINT pk_people PRIMARY KEY(id),
 );
+
+ALTER TABLE people
+ADD email VARCHAR(50) NOT NULL;
+
+ALTER TABLE people
+DROP COLUMN phone;
+
+DROP TABLE people;
