@@ -1,4 +1,4 @@
-# SQL Bootcamp Study Notes 🤓
+# SQL Study Notes 🤓
 
 This repository contains structured SQL practice files based on the course I've taken 🚀🚀🚀
 
