@@ -18,9 +18,6 @@ Each `.sql` file corresponds to a section from the course, and includes examples
 - `10-null-functions.sql` – `ISNULL`, `COALESCE`, `IFNULL`, etc.  
 - `11-case-when.sql` – `CASE WHEN` conditions and variations  
 - `12-window-basics.sql` – Basic window function syntax & `OVER()`  
-- `13-window-aggregates.sql` – Windowed `SUM`, `AVG`, `COUNT`, etc.  
-- `14-window-ranking.sql` – `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`  
-- `15-window-values.sql` – `LEAD()`, `LAG()`, `FIRST_VALUE()`, etc.  
 - `16-subqueries.sql` – Scalar, correlated, and nested subqueries  
 - `17-cte.sql` – Common Table Expressions (`WITH`)  
 - `18-views.sql` – Creating and querying SQL views  
