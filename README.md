@@ -26,11 +26,6 @@ Each `.sql` file corresponds to a section from the course, and includes examples
 - `21-indexes.sql` – Creating and using indexes  
 - `22-partitions.sql` – Partitioning tables for performance  
 - `23-performance.sql` – Query optimization best practices  
-- `24-copilot-chatgpt.sql` – Using AI tools like Copilot & ChatGPT with SQL  
-- `25-data-warehouse-project.sql` – Final warehouse project queries  
-- `26-exploratory-project.sql` – EDA with SQL  
-- `27-analytics-project.sql` – Advanced analytics project using SQL
-
 ---
 
 ### 🧠 Purpose
