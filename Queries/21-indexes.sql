@@ -7,7 +7,6 @@ Clustered Index:
    - Data Pages -> Leaf nodes (store the actual data).
    - Index Pages -> Intermediate nodes (store key ranges and pointers to the next level in the tree, helping quickly locate data).
 
-
 -------------------------------------
 Clustered Index Structure (B-Tree):
 -------------------------------------
@@ -31,6 +30,8 @@ Clustered Index Structure (B-Tree):
 - Index Pages: Intermediate nodes (store key ranges & pointers).
 - Data Pages: Leaf nodes (store actual data rows).
 
+
+Heap - Table without a clustered index
 
 -------------------------------------
 Non-Clustered Index:
@@ -78,3 +79,62 @@ WHERE Country = 'USA';
 
 
 --------------------------------------- Columnstore Index ---------------------------------------
+-- Rowstore indexes (the default type) store all columns for a specific row together in data pages.
+-- Columnstore indexes store each column separately in dedicated data pages (one page per column).
+-- Columnstore indexes are designed to improve performance of large analytical queries by allowing 
+-- the engine to read only the necessary columns instead of scanning entire rows.
+-- Does not create B-Tree and requires less space by compretion
+
+CREATE CLUSTERED COLUMNSTORE INDEX idx_DbCustomers_CS ON Sales.DbCustomers
+
+
+--------------------------------------- Unique Index ---------------------------------------
+-- A Unique Index ensures that all values in the indexed column(s) are unique.
+-- It automatically rejects INSERT or UPDATE operations that would cause duplicates.
+-- Useful for enforcing business rules like unique emails, usernames, etc.
+
+-- Can't create unique index when table contains duplicates
+CREATE UNIQUE NONCLUSTERED INDEX idx_Products_Category ON Sales.Products (Product)
+
+-- Cant insert new value if it is duplicate
+INSERT INTO Sales.Products (ProductID, Product) VALUES (106, 'Caps')
+
+
+--------------------------------------- Filtered Index ---------------------------------------
+-- An index that works only on rows meeting the specified conditions
+-- Can't create a filtered index on both clustered and columnstore indexes
+
+CREATE NONCLUSTERED INDEX idx_Customers_Country ON Sales.Customers (Country)
+WHERE Country = 'USA'
+
+-- This will work faster
+SELECT * FROM Sales.Customers WHERE Country = 'USA'
+
+
+/*
+    When To Use Each Index Type:
+
+    Heap:
+    - Use when you need fast, bulk INSERT operations.
+    - No clustered index exists; data is stored in no particular order.
+
+    Clustered Index:
+    - Use for Primary Keys or main lookup columns.
+    - If no ID exists, pick another column that makes sense for ordering (e.g., Date).
+
+    Columnstore Index:
+    - Use for large tables with Analytical Queries.
+    - Great for compression and reducing storage size.
+
+    Non-Clustered Index:
+    - Use for secondary lookups (e.g., Foreign Keys, JOINs, WHERE filters).
+    - Can include specific columns to cover queries.
+
+    Filtered Index:
+    - Use to index a subset of data (e.g., WHERE IsActive = 1).
+    - Reduces index size and improves performance on targeted queries.
+
+    Unique Index:
+    - Enforces data uniqueness (e.g., emails, usernames).
+    - Also improves lookup speed on the unique column(s).
+*/
